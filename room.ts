@@ -7,13 +7,11 @@ export class Room {
     _roomName: string;
     _host: Player;
     _players: Player[];
-    _teamA: Player[];
-    _teamB: Player[];
     _chat: String[];
     _roomSize: number;
     _roomTimeLimit: Date;
 
-    constructor(roomName, host) {
+    constructor(roomName: string, host: Player) {
         this._id = Math.random() * 10E16;
         this._roomName = roomName;
         this._host = host;
