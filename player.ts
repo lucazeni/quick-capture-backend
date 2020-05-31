@@ -7,8 +7,10 @@ export interface Coordinates {
     rotation: number;
 }
 
-type Player = User & Coordinates; 
+export type Player = User & Coordinates; 
 
 export interface Bullet extends Coordinates {
     bulletOffset: number;
+    duration: Date;
 }
+
