@@ -14,7 +14,6 @@ io.on('connection', (socket) => {
 
     const user: User = {name, team: 'unassigned'};
     users.push(user);
-    console.log(user);
 
   });
 
@@ -22,7 +21,6 @@ io.on('connection', (socket) => {
 
     const room = new Room(roomName, host);
     rooms.push(room);
-    console.log(room);
   });
   
 });
