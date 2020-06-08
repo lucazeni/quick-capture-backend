@@ -12,7 +12,7 @@ io.on('connection', (socket) => {
 
   socket.on('addUser', (name: string) => {
 
-    const user: User = {name, team: 'unassigned'};
+    const user = new User(name);
     users.push(user);
 
   });
@@ -24,6 +24,22 @@ io.on('connection', (socket) => {
   });
   
 });
+
+setInterval(() => {cleanRooms();}, 6000);
+
+function cleanUsers() {
+    const currentTime: any = new Date();
+    users = users.filter(user => { 
+     return ((currentTime - user._lastUpdated) < 7200000);
+    });
+}
+
+function cleanRooms() {
+  const currentTime: any = new Date();
+  rooms = rooms.filter(room => { 
+    return ((currentTime - room._roomTimeLimit) < 24000);
+  });
+}
 
 http.listen(8080, function () {
     console.log('listening to requests on localhost:8080');

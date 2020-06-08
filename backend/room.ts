@@ -7,13 +7,15 @@ export class Room {
     _players: User[];
     _chat: string[];
     _roomSize: number;
-    _roomTimeLimit: Date;
-
+    _roomTimeLimit: any;
+    _gameStarted: boolean;
+ 
     constructor(roomName: string, host: User) {
         this._id = Math.random() * 10E16;
         this._roomName = roomName;
         this._host = host;
         this._roomTimeLimit = new Date();
+        this._gameStarted = false;
     }
 
     getRoomName(): string {
@@ -57,5 +59,12 @@ export class Room {
         this._chat.push(message);
     }
 
+    getGameStarted(): boolean {
+        return this._gameStarted;
+    }
+
+    setGameStarted(started: boolean) {
+        this._gameStarted = started;
+    } 
 
 }

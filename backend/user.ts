@@ -4,7 +4,7 @@ export type TeamType = 'teamA' | 'teamB' | 'unassigned';
 export class User {
     _name: string;
     _team: TeamType;
-    _lastUpdated: Date;
+    _lastUpdated: any;
 
     constructor(name: string) {
         this._name = name;
@@ -22,7 +22,6 @@ export class User {
     }
 
     getTeam(): TeamType {
-        this.update();
         return this._team;
     }
     
