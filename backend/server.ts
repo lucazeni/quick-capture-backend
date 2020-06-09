@@ -11,7 +11,7 @@ io.on('connection', (socket) => {
   console.log(`user with address ${socket.conn.remoteAddress} connected`);
 
   socket.on('addUser', (name: string) => {
-
+    console.log('user added');
     const user = new User(name);
     users.push(user);
 
@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
   
 });
 
-setInterval(() => {cleanRooms();}, 6000);
+setInterval(() => {cleanUsers();}, 6000);
 
 function cleanUsers() {
     const currentTime: any = new Date();
