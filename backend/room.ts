@@ -1,29 +1,31 @@
 import { User } from "./user";
 
 export class Room {
-    _id: string;
+    _host: string;
+    _roomId: string;
     _roomName: string;
-    _host: User;
-    _players: User[];
+    _players: Map<String, User>;
     _chat: string[];
     _roomSize: number;
     _roomTimeLimit: any;
     _gameStarted: boolean;
- 
-    constructor(id: string, roomName: string, host: User) {
-        this._id = id;
+
+    constructor(userId: string, roomId: string, roomName: string) {
+        this._host = userId;
+        this._roomId = roomId;
         this._roomName = roomName;
-        this._host = host;
         this._roomTimeLimit = new Date();
         this._gameStarted = false;
+        this._players = new Map<String, User>();
+        this._roomSize = 0;
     }
 
     getId(): string {
-        return this._id;
+        return this._roomId;
     }
-    
-    setId(id: string) {
-        this._id = id;
+
+    setId(roomId: string) {
+        this._roomId = roomId;
     }
 
     getRoomName(): string {
@@ -34,28 +36,25 @@ export class Room {
         this._roomName = roomName;
     }
 
-    getHost(): User {
+    getHost(): string {
         return this._host;
     }
 
-    setHost(host: User) {
+    setHost(host: string) {
         this._host = host;
     }
 
-    getUsers(): User[] {
-        return this._players;
+    getUser(id: string): User {
+        return this._players.get(id);
     }
 
-    addUser(player: User) {
-        this._players.push(player);
+    addUser(id: string, player: User) {
+        this._players.set(id, player);
         this._roomSize++;
     }
 
-    removeUser(player: User) {
-        const index = this._players.indexOf(player, 0);
-        if (index > -1) {
-            this._players.splice(index, 1);
-         }
+    removeUser(id: string, player: User) {
+        const index = this._players.delete(id);
         this._roomSize--;
     }
 
@@ -73,6 +72,6 @@ export class Room {
 
     setGameStarted(started: boolean) {
         this._gameStarted = started;
-    } 
+    }
 
 }
