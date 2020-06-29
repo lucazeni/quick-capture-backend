@@ -1,7 +1,7 @@
 import { User } from "./user";
 
 export class Room {
-    _id: number;
+    _id: string;
     _roomName: string;
     _host: User;
     _players: User[];
@@ -10,12 +10,20 @@ export class Room {
     _roomTimeLimit: any;
     _gameStarted: boolean;
  
-    constructor(roomName: string, host: User) {
-        this._id = Math.random() * 10E16;
+    constructor(id: string, roomName: string, host: User) {
+        this._id = id;
         this._roomName = roomName;
         this._host = host;
         this._roomTimeLimit = new Date();
         this._gameStarted = false;
+    }
+
+    getId(): string {
+        return this._id;
+    }
+    
+    setId(id: string) {
+        this._id = id;
     }
 
     getRoomName(): string {
