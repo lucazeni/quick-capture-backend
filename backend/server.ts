@@ -1,20 +1,22 @@
 import { Room } from "./room";
 import { User } from "./user";
+
+import { TSMap } from "typescript-map"
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-let userMap = new Map<String, User>();
-let roomMap = new Map<String, Room>();
+let userMap = new TSMap<String, User>();
+let roomMap = new TSMap<String, Room>();
 
 io.on('connection', (socket) => {
   console.log(`user with address ${socket.conn.remoteAddress} connected`);
 
   socket.on('addUser', (id: string, name: string) => {
-    console.log(id, name);
+    //console.log(id, name);
     const user = new User(id, name);
     userMap.set(id, user);
-
+    console.log(userMap);
   });
 
   socket.on('addRoom', (userId: string, roomId: string, roomName: string) => {
@@ -23,6 +25,8 @@ io.on('connection', (socket) => {
     room.addUser(userId, user);
     roomMap.set(roomId, room);
     console.log(roomMap);
+  
+    io.sockets.emit('dispatchRooms', roomMap.toJSON());
   });
 
 });
