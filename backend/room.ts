@@ -1,10 +1,11 @@
 import { User } from "./user";
+import { TSMap } from "typescript-map"
 
 export class Room {
     _host: string;
     _roomId: string;
     _roomName: string;
-    _players: Map<String, User>;
+    _players: TSMap<String, User>;
     _chat: string[];
     _roomSize: number;
     _roomTimeLimit: any;
@@ -16,7 +17,7 @@ export class Room {
         this._roomName = roomName;
         this._roomTimeLimit = new Date();
         this._gameStarted = false;
-        this._players = new Map<String, User>();
+        this._players = new TSMap<String, User>();
         this._roomSize = 0;
     }
 
